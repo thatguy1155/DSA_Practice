@@ -1,40 +1,71 @@
-#first create the class of a node
-
+#create
 class Node:
-   def __init__(self, data):
-      self.left = None
-      self.right = None
-      self.data = data
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.val = key
 
-   def insert(self, data):
-   # Compare the new value with the parent node
-      if self.data:
-         #if less than than current node, if left empty append else recursively analyze lower level
-         if data < self.data:
-            if self.left is None:
-               self.left = Node(data)
-            else:
-               self.left.insert(data)
-         elif data > self.data:
-          #if greater than current node, do the same in the right direction
-               if self.right is None:
-                  self.right = Node(data)
-               else:
-                  self.right.insert(data)
-      else:
-         #if there is no tree then do initial insert
-         self.data = data   
-   def PrintTree(self):
-      if self.left:
-         self.left.PrintTree()
-      print( self.data),
-      if self.right:
-         self.right.PrintTree()
+# In-order DFS: Left, Root, Right
+def in_order_dfs(node):
+    if node is None:
+        return
+    in_order_dfs(node.left)
+    print(node.data, end=' ')
+    in_order_dfs(node.right)
 
-#then create the root. here it is 10
-# Use the insert method to add nodes
-root = Node(12)
-root.insert(6)
-root.insert(14)
-root.insert(3)
-root.PrintTree()
+# Pre-order DFS: Root, Left, Right
+def pre_order_dfs(node):
+    if node is None:
+        return
+    print(node.data, end=' ')
+    pre_order_dfs(node.left)
+    pre_order_dfs(node.right)
+
+# Post-order DFS: Left, Right, Root
+def post_order_dfs(node):
+    if node is None:
+        return
+    post_order_dfs(node.left)
+    post_order_dfs(node.right)
+    print(node.data, end=' ')
+
+# BFS: Level order traversal
+def bfs(root):
+    if root is None:
+        return
+    queue = [root]
+    while queue:
+        node = queue.pop(0)
+        print(node.data, end=' ')
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
+
+if __name__ == "__main__":
+    # Creating the tree
+    root = Node(2)
+    root.left = Node(3)
+    root.right = Node(4)
+    root.left.left = Node(5)
+
+    print("In-order DFS: ", end='')
+    in_order_dfs(root)
+    print("\nPre-order DFS: ", end='')
+    pre_order_dfs(root)
+    print("\nPost-order DFS: ", end='')
+    post_order_dfs(root)
+    print("\nLevel order: ", end='')
+    bfs(root)
+
+
+# create nodes
+firstNode = Node(2)
+secondNode = Node(3)
+thirdNode = Node(4)
+fourthNode = Node(5)
+
+# assign nodes
+firstNode.left = secondNode
+firstNode.right = thirdNode
+secondNode.left = fourthNode
