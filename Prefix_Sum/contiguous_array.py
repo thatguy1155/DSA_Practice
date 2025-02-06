@@ -1,21 +1,21 @@
 def findMaxLength(nums) -> int:
-    num_of_zeros = 0
+    num_of_zeroes = 0
     num_of_ones = 0
-    result = 0
+    res = 0
     diff_index = {} #map diff to ending index of the sub_array
     for i, n in enumerate(nums):
         if n == 0:
           num_of_zeroes += 1
         else:
-           num_of_ones += 1
+          num_of_ones += 1
         if num_of_zeroes - num_of_ones not in diff_index:
-           diff_index[num_of_zeroes - num_of_ones] = i
+          diff_index[num_of_zeroes - num_of_ones] = i
         if num_of_zeroes == num_of_ones:
-           res = num_of_zeroes + num_of_ones
-    print(fuck_dict)
-    val = fuck_dict[abs(num_of_zeros - num_of_ones)]
-    print(val)
-    return len(nums) - (val + 1)
+          res = num_of_zeroes + num_of_ones
+        else:
+          idx = diff_index[num_of_zeroes - num_of_ones]
+          res = max(res, i - idx)
+    return res
     
 print(findMaxLength([0,0,1,0,0,0,1,1]))
 '''
